@@ -1,11 +1,11 @@
 from revChatGPT.V3 import Chatbot
-from config import API_KEY
 
-# Initialize the Chatbot with API key
-if API_KEY is None:
-    print("API key not found. Please set the API_KEY environment variable.")
-    exit(1)
-chatbot = Chatbot(API_KEY)
+# Create a chatbot with the API key
+API_KEY = "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"
+
+chatbot = Chatbot(
+  API_KEY,
+)
 
 #Create a conversation with the interview text
 file_path = "transcript.txt"
