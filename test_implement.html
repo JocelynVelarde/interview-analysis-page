@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Analysis App</title>
+</head>
+<body>
+    <h1>Text Analysis</h1>
+    <input type="file" id="fileInput">
+    <br><br>
+    <label for="analysisOption">Select Analysis Option:</label>
+    <select id="analysisOption">
+        <option value="1">Emotions</option>
+        <option value="2">Keywords</option>
+        <option value="3">Tone</option>
+        <option value="4">Meta-Analysis</option>
+    </select>
+    <br><br>
+    <button onclick="analyzeText()">Analyze</button>
+    <br><br>
+    <div id="response"></div>
+
+    <script>
+        function analyzeText() {
+            // Get the selected file and analysis option
+            const fileInput = document.getElementById('fileInput');
+            const analysisOption = document.getElementById('analysisOption').value;
+            
+            // Create a FormData object to send the file
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('analysisOption', analysisOption);
+            
+            // Send the data to the server (replace with your server URL)
+            fetch('/analyze', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Display the chatbot's response
+                document.getElementById('response').textContent = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

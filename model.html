@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Interview Analyzer</title>
+  <!-- MDB icon -->
+  <link rel="icon" href="img/wow.png" type="image/x-icon" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="css/mdb.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .card {
+      margin: 10px;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Start your project here-->
+
+  <div class="container my-5">
+    <div class="row gx-lg-5 pt-5">
+      <div class="col-md-5 mb-9 mb-md-0 d-flex align-items-center">
+        <div>
+          <h1 class="display-4 fw-bold lh-1 ls-tight mb-5">
+            Insert your .txt file below to get started!<br />
+          </h1>
+          <input type="file" id="fileInput">
+
+          <br><br>
+          <label for="analysisOption">Select Analysis Option:</label>
+          <select id="analysisOption">
+            <option value="1">Emotions</option>
+            <option value="2">Keywords</option>
+            <option value="3">Tone</option>
+            <option value="4">Meta-Analysis</option>
+          </select>
+
+          <br><br>
+
+          <a href="admin-panel.html" class="btn btn-secondary btn-lg mt-4 me-2">
+            Analyze
+          </a>
+
+          <button type="button" class="btn btn-link text-secondary btn-lg mt-4" data-ripple-color="secondary">
+            Further explore
+          </button>
+
+        </div>
+      </div>
+
+      <div class="col-md-7 mb-4 mb-md-0 position-relative d-flex align-items-center">
+        <img src="https://mdbootstrap.com/img/illustrations/graphics(1).png" class="w-100" id="featured-image" alt="" />
+
+        <div id="shape-1" class="rounded-circle position-absolute opacity-70 scale-up-center d-none d-md-block"></div>
+        <div id="shape-2"
+          class="rounded-circle position-absolute opacity-70 scale-up-center fade-delay-2000 d-none d-md-block"></div>
+        <div id="shape-3"
+          class="rounded-circle position-absolute opacity-70 scale-up-center fade-delay-4000 d-none d-md-block"></div>
+      </div>
+    </div>
+    <div class="container">
+      <h3 class="title" style="text-align: center; padding-top: 30px;">See the results below</h3>
+    </div>
+
+    <div class="row" style="align-items: center;">
+      <div class="col-md-4 mb-4">
+        <div class="card h-100" style="width: 30rem;">
+          <div class="card-body">
+            <i class="fas fa-check-circle text-success"></i>
+            <h5 class="card-title d-inline">Language and Syntax</h5>
+            <p class="card-text">Examine the interviewee's language proficiency, including their vocabulary, grammar,
+              and syntax. Take note of whether they use complex or simple language structures.</p>
+            <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark">Analytics</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End your project here-->
+
+  <!-- MDB -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Custom scripts -->
+  <script type="text/javascript"></script>
+</body>
+
+</html>
