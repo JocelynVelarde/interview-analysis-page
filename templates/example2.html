@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Chatbot</title>
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Chatbot</h1>
-    <div id="conversation">
-        {% for message, sender in conversation %}
-            <p>{{ sender }}: {{ message }}</p>
-        {% endfor %}
+    <div class="container mt-5">
+        <h1 class="display-4">Chatbot</h1>
+        <div id="conversation">
+            <!-- Messages will be displayed here -->
+            {% for message, sender in conversation %}
+                <p>{{ sender }}: {{ message }}</p>
+            {% endfor %}
+        </div>
+        <form method="POST" enctype="multipart/form-data" class="mt-4">
+            <div class="mb-3">
+                <label for="source_prompt" class="form-label">Select an option:</label>
+                <select name="source_prompt" id="source_prompt" class="form-select">
+                    <option value="1">Reconocimiento de emociones</option>
+                    <option value="2">Extracción de palabras clave</option>
+                    <option value="3">Análisis de tono</option>
+                    <option value="4">Estructura y flujo de la entrevista</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="file" class="form-label">Upload a .txt file:</label>
+                <input type="file" name="file" id="file" class="form-control" accept=".txt">
+            </div>
+            <div class="mb-3">
+                <label for="user_message" class="form-label">Enter text (optional):</label>
+                <textarea name="user_message" id="user_message" class="form-control" placeholder="Enter text (optional)"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
     </div>
-    <form method="POST">
-        <input type="text" name="user_message" placeholder="Type your message">
-        <button type="submit">Send</button>
-    </form>
+    <!-- Add Bootstrap JS scripts if needed -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
