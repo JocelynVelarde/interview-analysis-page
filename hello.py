@@ -3,7 +3,7 @@ from revChatGPT.V3 import Chatbot
 
 app = Flask(__name__)
 
-API_KEY = "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"
+API_KEY = "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"
 chatbot = Chatbot(API_KEY)
 
 conversation = []
@@ -18,7 +18,11 @@ def chat():
             uploaded_file = request.files["file"]
             if uploaded_file.filename != "":
                 # Read the content of the uploaded file
+                
+                
                 user_message = uploaded_file.read().decode("utf-8")
+                chatbot.add_to_conversation(user_message, "user")
+                #print("User: " + user_message)
         else:
             user_message = request.form["user_message"]
         

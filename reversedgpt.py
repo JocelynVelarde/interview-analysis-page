@@ -1,7 +1,7 @@
 from revChatGPT.V3 import Chatbot
 
 # Create a chatbot with the API key
-API_KEY = "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"
+API_KEY = "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"
 
 chatbot = Chatbot(
   API_KEY,
