@@ -43,7 +43,7 @@ def chat():
             response = "Option not recognized."
 
         #conversation.append(("User: " + user_message, "user"))
-        conversation.append((source_prompt + " " + response, "Opción:"))
+        conversation.append((source_prompt + " " + response, "Opción"))
 
     else:
         response = "Ask me something."
