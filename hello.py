@@ -5,7 +5,7 @@ from config import API_KEY
 app = Flask(__name__)
 
 
-chatbot = Chatbot(API_KEY)
+chatbot = Chatbot("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")
 
 conversation = []
 
@@ -26,6 +26,8 @@ def chat():
                 #print("User: " + user_message)
         else:
             user_message = request.form["user_message"]
+            #user_message = uploaded_file.read().decode("utf-8")
+            #chatbot.add_to_conversation(user_message, "user")
         
         if source_prompt == "Reconocimiento de emociones":
             emotion_prompt = "Analiza esta llamada telefónica enfocada a agendar una cita para que el cliente conozca un proyecto inmobiliario y describe las emociones del vendedor y comprador en un párrafo para cada uno. Trata de identificar si alguna de estas emociones ayudó a que se concretara una cita en caso de que se hubiera agendado, o qué emociones pudieron haber causado que no se lograra agendar una cita."
