@@ -1,10 +1,13 @@
 from flask import Flask, render_template, request
 from revChatGPT.V3 import Chatbot
 from config import API_KEY
+from auth import spreadsheet_service
 
 app = Flask(__name__)
 
-chatbot = Chatbot("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")
+chatbot = Chatbot("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")
+
+spreadsheet_id = '1EyFOt8CQmxNi9lKRLWCnHIYUCf-mDjLFX6jrFjTPUO0' 
 
 conversation = []
 
@@ -24,16 +27,28 @@ def chat():
                 
                 # Use ChatGPT to analyze the combined prompt and text file
                 response = chatbot.ask(combined_prompt)
-
+                
                 conversation.append((user_prompt, "User Prompt"))
                 conversation.append((user_message, "Uploaded Text"))
                 conversation.append((response, "Response"))
+                write_data_to_sheet(response)
+                print(response)
 
     else:
         response = "Ask me something."
 
     return render_template("example22.html", conversation=conversation, response=response)
 
+def write_data_to_sheet(text):
+    range_name = 'Sheet1!A2'  # Puedes especificar la celda donde deseas escribir el texto
+    value_input_option = 'USER_ENTERED'
+    body = {
+        'values': [[text]]
+    }
+    result = spreadsheet_service.spreadsheets().values().update(
+        spreadsheetId=spreadsheet_id, range=range_name,
+        valueInputOption=value_input_option, body=body).execute()
+    print('1 cell updated with text: {0}'.format(text))
 
 if __name__ == "__main__":
     app.run(debug=True)
