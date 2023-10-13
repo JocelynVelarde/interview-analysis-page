@@ -5,7 +5,7 @@ from auth import spreadsheet_service
 
 app = Flask(__name__)
 
-chatbot = Chatbot("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")
+chatbot = Chatbot("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")
 
 spreadsheet_id = '1EyFOt8CQmxNi9lKRLWCnHIYUCf-mDjLFX6jrFjTPUO0' 
 
@@ -31,7 +31,7 @@ def chat():
                 conversation.append((user_prompt, "User Prompt"))
                 conversation.append((user_message, "Uploaded Text"))
                 conversation.append((response, "Response"))
-                write_data_to_sheet(response)
+                write_json_to_sheet(response)
                 print(response)
 
     else:
@@ -49,6 +49,19 @@ def write_data_to_sheet(text):
         spreadsheetId=spreadsheet_id, range=range_name,
         valueInputOption=value_input_option, body=body).execute()
     print('1 cell updated with text: {0}'.format(text))
+
+
+def write_json_to_sheet(text):
+    range_name = 'Sheet1!A2:R1'
+    values = [list(text.keys()), list(text.values())]
+    value_input_option = 'USER_ENTERED'
+    body = {
+        'values': values
+    }
+    result = spreadsheet_service.spreadsheets().values().update(
+        spreadsheetId=spreadsheet_id, range=range_name,
+        valueInputOption=value_input_option, body=body).execute()
+    print('{0} cells updated.'.format(result.get('updatedCells')))
 
 if __name__ == "__main__":
     app.run(debug=True)
