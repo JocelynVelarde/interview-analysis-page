@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template, request
 from revChatGPT.V3 import Chatbot
 from config import API_KEY
@@ -5,7 +6,7 @@ from auth import spreadsheet_service
 
 app = Flask(__name__)
 
-chatbot = Chatbot("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")
+
 
 spreadsheet_id = '1EyFOt8CQmxNi9lKRLWCnHIYUCf-mDjLFX6jrFjTPUO0' 
 
@@ -31,7 +32,7 @@ def chat():
                 conversation.append((user_prompt, "User Prompt"))
                 conversation.append((user_message, "Uploaded Text"))
                 conversation.append((response, "Response"))
-                write_json_to_sheet(response)
+                write_data_to_sheet(response)
                 print(response)
 
     else:
@@ -39,29 +40,34 @@ def chat():
 
     return render_template("example22.html", conversation=conversation, response=response)
 
-def write_data_to_sheet(text):
-    range_name = 'Sheet1!A2'  # Puedes especificar la celda donde deseas escribir el texto
-    value_input_option = 'USER_ENTERED'
-    body = {
-        'values': [[text]]
-    }
-    result = spreadsheet_service.spreadsheets().values().update(
-        spreadsheetId=spreadsheet_id, range=range_name,
-        valueInputOption=value_input_option, body=body).execute()
-    print('1 cell updated with text: {0}'.format(text))
-
-
-def write_json_to_sheet(text):
-    range_name = 'Sheet1!A2:R1'
-    values = [list(text.keys()), list(text.values())]
-    value_input_option = 'USER_ENTERED'
+def write_data_to_sheet(texto):
+    data = json.loads(texto)
+    range_name = 'Sheet1!A2:R'  # Modifica esto para que abarque toda la columna donde deseas agregar datos.
+    
+    # Obten los datos actuales en la hoja de cálculo.
+    result = spreadsheet_service.spreadsheets().values().get(spreadsheetId=spreadsheet_id, range=range_name).execute()
+    
+    values = result.get('values', [])
+    
+    if not values:
+        # Si no hay datos en la hoja de cálculo, agrega las llaves como la primera fila.
+        values.append(list(data.keys()))
+    
+    # Agrega los nuevos datos al final de la lista.
+    values.append(list(data.values()))
+    
+    # Actualiza la hoja de cálculo con los datos combinados.
     body = {
         'values': values
     }
+    
     result = spreadsheet_service.spreadsheets().values().update(
         spreadsheetId=spreadsheet_id, range=range_name,
-        valueInputOption=value_input_option, body=body).execute()
+        valueInputOption='USER_ENTERED', body=body).execute()
+    
     print('{0} cells updated.'.format(result.get('updatedCells')))
+    print(result)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
