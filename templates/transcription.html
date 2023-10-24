@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Transcription</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Audio Transcription</h1>
+
+        <div class="mt-4">
+            <button id="transcribe-button" class="btn btn-primary">Transcribe Audio</button>
+        </div>
+
+        <div class="mt-4">
+            <p id="transcription-result">Transcription: Waiting for result</p>
+        </div>
+    </div>
+
+    <script>
+        const transcribeButton = document.getElementById("transcribe-button");
+        const transcriptionResult = document.getElementById("transcription-result");
+
+        transcribeButton.addEventListener("click", async () => {
+    transcriptionResult.textContent = "Transcription: Loading...";
+
+    // Make a request to your server to transcribe the audio
+    const response = await fetch("/transcribe");
+
+    if (response.ok) {
+        const dataa = await response.text();
+        print(dataa + "dataa");
+        transcriptionResult.textContent = "Transcription: " + dataa + "\n";
+    } else {
+        transcriptionResult.textContent = "Transcription: Error";
+    }
+});
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

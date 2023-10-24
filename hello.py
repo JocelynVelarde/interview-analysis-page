@@ -5,7 +5,7 @@ from config import API_KEY
 app = Flask(__name__)
 
 
-chatbot = Chatbot("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")
+chatbot = Chatbot("key")
 
 conversation = []
 
